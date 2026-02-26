@@ -1,0 +1,1 @@
+this is a vibe coded project for daily thoughts of users.
