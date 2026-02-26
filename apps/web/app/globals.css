@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Base - Light Mode */
+    --bg-void:        #FFFFFF;
+    --bg-surface:     #F4F4F5;
+    --bg-elevated:    #E4E4E7;
+    --bg-subtle:      #FAFAFA;
+
+    /* Borders */
+    --border-dim:     rgba(0,0,0,0.04);
+    --border-default: rgba(0,0,0,0.08);
+    --border-bright:  rgba(0,0,0,0.15);
+
+    /* Accent & Status */
+    --accent:         #7C3AED;
+    --accent-light:   #9D65FF;
+    --accent-glow:    rgba(124, 58, 237, 0.15);
+    --accent-subtle:  rgba(124, 58, 237, 0.05);
+    --cyan:           #0EA5E9; /* Sky blue for light mode */
+    --cyan-glow:      rgba(14, 165, 233, 0.15);
+    --cyan-subtle:    rgba(14, 165, 233, 0.05);
+
+    /* Text */
+    --text-primary:   #18181B;
+    --text-secondary: #52525B;
+    --text-muted:     #71717A;
+    --text-ghost:     #A1A1AA;
+
+    --green:          #16A34A;
+    --red:            #DC2626;
+    --yellow:         #D97706;
+
+    /* Light Mode Aura-like Gradients */
+    --blob-1: radial-gradient(circle, rgba(234,88,12,0.1) 0%, transparent 70%);
+    --blob-2: radial-gradient(circle, rgba(14,165,233,0.08) 0%, transparent 70%);
+  }
+
+  .dark {
+    /* Base - Dark Mode (Original) */
+    --bg-void:        #050505;
+    --bg-surface:     #0D0D0D;
+    --bg-elevated:    #141414;
+    --bg-subtle:      #1A1A1A;
+
+    /* Borders */
+    --border-dim:     rgba(255,255,255,0.04);
+    --border-default: rgba(255,255,255,0.08);
+    --border-bright:  rgba(255,255,255,0.15);
+
+    /* Accent & Status */
+    --accent:         #7C3AED;
+    --accent-light:   #9D65FF;
+    --accent-glow:    rgba(124, 58, 237, 0.25);
+    --accent-subtle:  rgba(124, 58, 237, 0.08);
+    --cyan:           #22D3EE;
+    --cyan-glow:      rgba(34, 211, 238, 0.2);
+    --cyan-subtle:    rgba(34, 211, 238, 0.06);
+
+    /* Text */
+    --text-primary:   #F4F4F5;
+    --text-secondary: #A1A1AA;
+    --text-muted:     #52525B;
+    --text-ghost:     #27272A;
+
+    --green:          #22C55E;
+    --red:            #EF4444;
+    --yellow:         #F59E0B;
+
+    /* Dark Mode Premium Gradients */
+    --blob-1: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+    --blob-2: radial-gradient(circle, rgba(34,211,238,0.07) 0%, transparent 70%);
+  }
+
+  body {
+    @apply bg-(--bg-void) text-(--text-primary) antialiased transition-colors duration-500;
+  }
+}
+
+@layer utilities {
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+  }
+
+  /* Ambient Glow Blobs dynamic to theme */
+  .blob-gradient-1 {
+    position: absolute;
+    top: -200px;
+    left: -100px;
+    width: 700px;
+    height: 700px;
+    background: var(--blob-1);
+    filter: blur(80px);
+    animation: blob-drift 12s ease-in-out infinite alternate;
+  }
+
+  .blob-gradient-2 {
+    position: absolute;
+    top: -100px;
+    right: -150px;
+    width: 500px;
+    height: 500px;
+    background: var(--blob-2);
+    filter: blur(100px);
+    animation: blob-drift 16s ease-in-out infinite alternate-reverse;
+  }
+
+  @keyframes blob-drift {
+    from {
+      transform: translate(0, 0) scale(1);
+    }
+    to {
+      transform: translate(30px, 20px) scale(1.05);
+    }
+  }
+
+  /* Thought Card Premium Styling */
+  .thought-card {
+    position: relative;
+    background: linear-gradient(135deg, #0d0d0d 0%, #111111 100%);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 6px;
+    padding: 56px 64px;
+    box-shadow:
+      0 0 0 1px rgba(124, 58, 237, 0.05),
+      0 0 40px rgba(124, 58, 237, 0.08),
+      0 0 80px rgba(124, 58, 237, 0.04),
+      0 32px 64px rgba(0, 0, 0, 0.6);
+  }
+
+  .thought-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      #7c3aed,
+      #22d3ee,
+      transparent
+    );
+    border-radius: 6px 6px 0 0;
+  }
+
+  /* Skeleton Loading */
+  .skeleton-thought {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.02) 25%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.02) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 2s ease-in-out infinite;
+  }
+
+  @keyframes skeleton-shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* Typography Scales from Prompt */
+  .text-hero {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+  }
+}
