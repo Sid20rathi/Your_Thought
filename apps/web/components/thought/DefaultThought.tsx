@@ -6,33 +6,25 @@ import Link from "next/link";
 export function DefaultThought() {
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="w-full max-w-[720px] mx-auto z-20 mt-16 p-16 md:p-24 border border-dashed border-[#7C3AED]/20 bg-gradient-to-r from-[rgba(255,255,255,0.01)] via-[rgba(255,255,255,0.03)] to-[rgba(255,255,255,0.01)] rounded-[6px] flex flex-col items-center justify-center text-center relative overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 0.8 }}
+      className="w-full flex flex-col items-center justify-center text-center p-8"
     >
-      {/* Shimmer overlay for 'waiting' state */}
-      <div className="absolute inset-0 skeleton-thought opacity-50" />
-
       <div className="relative z-10 flex flex-col items-center">
-        <h3 className="font-mono text-lg text-[#F4F4F5] tracking-tight mb-8">
-          [ The spotlight is empty. ]
-        </h3>
-
-        <div className="text-[#A1A1AA] text-2xl mb-8 animate-[pulse_3s_ease-in-out_infinite] opacity-30">
-          ◈
-        </div>
-
-        <p className="font-ui text-base text-[#A1A1AA] max-w-sm mb-12">
-          No thought has been claimed today.<br/>
-          Be the first developer to own this moment.
+        <p className="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 mb-12">
+          The void awaits your presence
         </p>
+
+        <h3 className="font-ui text-3xl font-light text-white/80 tracking-tight leading-relaxed mb-12 max-w-[300px]">
+          No thought has been <br/> claimed today.
+        </h3>
 
         <Link 
           href="/dashboard"
-          className="group font-mono text-sm text-[#7C3AED] hover:text-[#9D65FF] transition-colors border border-transparent hover:border-[#7C3AED]/30 bg-transparent hover:bg-[#7C3AED]/10 px-6 py-2.5 rounded-sm flex items-center gap-2"
+          className="group font-mono text-[10px] text-white hover:text-[#FFD700] transition-colors border border-white/10 hover:border-[#FFD700]/30 bg-white/5 hover:bg-white/10 px-8 py-3 rounded-full uppercase tracking-widest flex items-center gap-3 active:scale-95"
         >
+          Claim the moment
           <span className="group-hover:translate-x-1 transition-transform">→</span>
-          Claim today's thought
         </Link>
       </div>
     </motion.div>

@@ -1,10 +1,10 @@
 import { ThoughtCard } from "@/components/thought/ThoughtCard";
 import { DefaultThought } from "@/components/thought/DefaultThought";
-import { HowItWorks } from "@/components/landing/HowItWorks";
-import { ArchiveTicker } from "@/components/landing/ArchiveTicker";
-import { ThoughtEditor } from "@/components/dashboard/ThoughtEditor";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
+import { Portal } from "@/components/landing/Portal";
+import { HeroContent } from "@/components/landing/HeroContent";
+import { CharacterInfo } from "@/components/landing/CharacterInfo";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -25,77 +25,55 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-start min-h-screen relative overflow-hidden">
+    <main className="flex flex-col items-center justify-start min-h-screen relative overflow-hidden bg-[#0D0D0D]">
       
-      {/* --- HERO SECTION with 3D ART --- */}
-      <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center pt-24 pb-32 px-4 overflow-hidden">
+      {/* --- HERO SECTION ONLY --- */}
+      <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
         
-        {/* 3D Abstract Hero Image (Absolute background, soft masking) */}
-        <div className="absolute inset-0 z-0 flex items-center justify-center opacity-60 dark:opacity-40">
+        {/* Background Image: High Resolution Portal */}
+        <div className="absolute inset-0 z-0">
            <Image 
-             src="/hero.png" 
-             alt="Futuristic Developer Aura"
-             className="object-cover w-full h-full max-w-[1400px] mask-radial mix-blend-screen dark:mix-blend-lighten"
-             width={1400} 
-             height={900}
+             src="/portal image.png" 
+             alt="The Thinkr Portal"
+             fill
+             className="object-cover object-center grayscale-[0.2] contrast-[1.1]"
              priority
+             quality={100}
            />
-           {/* Darken edges to blend with background seamlessly */}
-           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--bg-void)]" />
-           <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-[var(--bg-void)]" />
+           {/* Realistic cinematic overlays */}
+           <div className="absolute inset-0 bg-black/20" />
+           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+           <div className="absolute inset-0 radial-overlay" />
         </div>
 
-        {/* Hero Content (Z-10) */}
-        <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center gap-8">
+        {/* Character Info (Aligned with the base of the arch) */}
+        <div className="absolute left-[39.5%] bottom-[42%] z-30">
+          <CharacterInfo 
+            name={todayThought?.author_name || "Siddhant"} 
+            socialId="@sid20rathi"
+          />
+        </div>
+
+        {/* Hero Content & Portal - Precisely positioned for the Arch */}
+        <div className="relative z-20 flex flex-col items-center w-full max-w-[1440px] mt-[-30vh]">
           
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 dark:border-white/5 bg-white/50 dark:bg-black/20 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-            <span className="font-mono text-[10px] md:text-xs text-[#52525B] dark:text-[#A1A1AA] uppercase tracking-widest">
-              Live Global Canvas
-            </span>
+          <div className="mb-[10vh]">
+            <HeroContent />
           </div>
 
-          <h1 className="text-4xl md:text-hero font-light tracking-tight leading-[1.1] text-transparent bg-clip-text bg-gradient-to-b from-[#18181B] to-[#71717A] dark:from-white dark:to-white/60">
-            Share your <br />
-            <span className="font-mono text-[#7C3AED] dark:text-[#9D65FF] italic mr-2">latest</span> 
-            obsession.
-          </h1>
-
-          <p className="font-ui text-base md:text-lg text-[#52525B] dark:text-[#A1A1AA] max-w-xl mx-auto leading-relaxed">
-            One developer owns this space every 24 hours. A polished, distraction-free stage to share your latest bug, a major achievement, or a hot take with the world.
-          </p>
-        </div>
-
-        {/* The Platinum Board (Today's Thought) - Glassmorphic floating over the 3D art */}
-        <div className="relative z-20 w-full max-w-[640px] mt-16 px-4">
-          <div className="absolute -inset-4 bg-white/10 dark:bg-[#7C3AED]/5 blur-2xl rounded-full opacity-50 pointer-events-none" />
-          <div className="backdrop-blur-2xl bg-white/30 dark:bg-[#0D0D0D]/60 rounded-xl p-[1px] shadow-2xl relative">
-            <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-white/10 dark:from-white/10 dark:to-transparent rounded-xl pointer-events-none" />
-            {todayThought ? (
-              <ThoughtCard thought={todayThought} />
-            ) : (
-              <DefaultThought />
-            )}
+          {/* Integrated Portal Content - Shifted up into the archway */}
+          <div className="relative w-full max-w-xl px-4 flex justify-center mt-[-5vh]">
+            <Portal>
+              {todayThought ? (
+                <ThoughtCard thought={todayThought} />
+              ) : (
+                <DefaultThought />
+              )}
+            </Portal>
           </div>
         </div>
+
       </section>
-
-      {/* --- IN-PLACE EDITOR FOR LOGGED IN USERS --- */}
-      {userId && (
-        <section className="relative z-20 w-full max-w-3xl mx-auto px-4 py-24 border-t border-black/5 dark:border-white/5">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-light text-[#18181B] dark:text-white">Post your thought.</h2>
-            <p className="font-mono text-xs text-[#71717A] uppercase tracking-widest mt-2">What did you build today?</p>
-          </div>
-          <ThoughtEditor />
-        </section>
-      )}
-
-      {/* --- HOW IT WORKS / CAPABILITIES --- */}
-      <HowItWorks />
-
-      {/* --- ARCHIVER TICKER --- */}
-      <ArchiveTicker />
       
     </main>
   );

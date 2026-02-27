@@ -50,7 +50,7 @@ export default function RootLayout({
             <div className="blob-gradient-2" />
 
             <Navbar />
-            <div className="pt-[72px]">
+            <div>
               {children}
             </div>
           </ThemeProvider>
