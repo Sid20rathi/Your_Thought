@@ -32,15 +32,17 @@ export async function Navbar() {
                 </div>
               </div>
             ) : (
-              <div className="flex items-center gap-8">
+              <div className="flex items-center gap-10">
                 <SignInButton mode="modal">
-                  <button className="text-white/50 hover:text-white text-[10px] font-mono uppercase tracking-[0.3em] transition-colors">
+                  <button className="text-white/40 hover:text-white text-[10px] font-mono uppercase tracking-[0.4em] transition-all duration-500">
                     Sign In
                   </button>
                 </SignInButton>
+                
                 <SignUpButton mode="modal">
-                  <button className="bg-white/90 hover:bg-white text-black px-8 py-2.5 rounded-full text-[10px] font-mono uppercase font-bold tracking-[0.2em] transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                    Sign Up
+                  <button className="relative px-8 py-3 rounded-full bg-white/5 border border-white/10 text-white text-[10px] font-mono uppercase tracking-[0.3em] overflow-hidden group/btn hover:border-white/40 transition-all duration-700">
+                    <span className="relative z-10 group-hover/btn:text-black transition-colors duration-500">Claim your spot</span>
+                    <div className="absolute inset-0 bg-white translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-out" />
                   </button>
                 </SignUpButton>
               </div>

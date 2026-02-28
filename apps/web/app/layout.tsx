@@ -21,14 +21,32 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider
+      localization={{
+        signIn: { start: { title: "Sign in to Thinkr" } },
+        signUp: { start: { title: "Create your Thinkr account" } },
+      }}
       appearance={{
         baseTheme: dark,
         variables: {
-          colorPrimary: "#7C3AED",
-          colorBackground: "#0D0D0D",
-          colorInputBackground: "#1A1A1A",
+          colorPrimary: "#A855F7",
+          colorBackground: "#050505",
+          colorInputBackground: "#0D0D0D",
           colorText: "#F4F4F5",
-          borderRadius: "4px",
+          colorTextSecondary: "#A1A1AA",
+          borderRadius: "12px",
+          fontFamily: "var(--font-ui)",
+        },
+        elements: {
+          card: "border border-white/10 bg-black/60 backdrop-blur-3xl shadow-2xl",
+          headerTitle: "text-white tracking-tight",
+          headerSubtitle: "text-zinc-400",
+          socialButtonsBlockButton: "bg-white/5 border-white/10 hover:bg-white/10 transition-all",
+          socialButtonsBlockButtonText: "text-white font-medium",
+          formButtonPrimary: "bg-purple-600 hover:bg-purple-500 transition-all shadow-[0_0_20px_rgba(168,85,247,0.2)]",
+          formFieldInput: "bg-white/5 border-white/10 focus:border-purple-500/50 transition-all",
+          footerActionLink: "text-purple-400 hover:text-purple-300",
+          dividerLine: "bg-white/10",
+          dividerText: "text-zinc-500",
         }
       }}
     >
@@ -38,8 +56,8 @@ export default function RootLayout({
         >
           <ThemeProvider 
             attribute="class" 
-            defaultTheme="system" 
-            enableSystem 
+            defaultTheme="dark" 
+            enableSystem={false}
             disableTransitionOnChange
           >
             {/* Global Noise Overlay */}
